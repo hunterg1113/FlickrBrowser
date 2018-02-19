@@ -1,6 +1,10 @@
 package com.example.huntergreer.flickrbrowser;
 
-class Photo {
+import java.io.Serializable;
+
+class Photo implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String mTitle;
     private String mAuthor;
     private String mAuthorId;
@@ -8,7 +12,7 @@ class Photo {
     private String mTags;
     private String mImage;
 
-    public Photo(String title, String author, String authorId, String link, String tags, String image) {
+    Photo(String title, String author, String authorId, String link, String tags, String image) {
         mTitle = title;
         mAuthor = author;
         mAuthorId = authorId;
@@ -17,7 +21,7 @@ class Photo {
         mImage = image;
     }
 
-    String getTitle() {
+    public String getTitle() {
         return mTitle;
     }
 

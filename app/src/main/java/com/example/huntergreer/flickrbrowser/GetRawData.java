@@ -22,7 +22,7 @@ class GetRawData extends AsyncTask<String, Void, String> {
         void onDownloadComplete(String data, DownloadStatus status);
     }
 
-    public GetRawData(OnDownloadComplete callback) {
+    GetRawData(OnDownloadComplete callback) {
         mDownloadStatus = DownloadStatus.IDLE;
         mCallBack = callback;
     }
@@ -43,9 +43,6 @@ class GetRawData extends AsyncTask<String, Void, String> {
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
-                int response = connection.getResponseCode();
-                Log.d(TAG, "doInBackground: response code was " + response);
-
                 reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
                 for (String line = reader.readLine(); line != null; line = reader.readLine()) {
@@ -74,12 +71,17 @@ class GetRawData extends AsyncTask<String, Void, String> {
         }
     }
 
+    void runInSameThread(String s){
+        Log.d(TAG, "runInSameThread: starts");
+//        onPostExecute(doInBackground(s));
+        if(mCallBack!=null) mCallBack.onDownloadComplete(doInBackground(s),DownloadStatus.OK);
+        Log.d(TAG, "runInSameThread: ends");
+    }
+
     @Override
     protected void onPostExecute(String s) {
         Log.d(TAG, "onPostExecute: parameter is " + s);
-
         if (mCallBack != null) mCallBack.onDownloadComplete(s, mDownloadStatus);
-
         Log.d(TAG, "onPostExecute: ends");
     }
 }
