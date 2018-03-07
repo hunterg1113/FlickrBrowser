@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity implements GetFlickrJsonData.OnDa
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "Normal tap at position " + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Normal tap at position " + position + ".\nLong press to enlarge photo.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
